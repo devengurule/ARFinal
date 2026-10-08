@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
 
 
     private void OnEnable() => arImageManager.trackablesChanged.AddListener(OnTrackedImagesChanged);
-    private void ODisable() => arImageManager.trackablesChanged.RemoveListener(OnTrackedImagesChanged);
+    private void OnDisable() => arImageManager.trackablesChanged.RemoveListener(OnTrackedImagesChanged);
 
     private void OnTrackedImagesChanged(ARTrackablesChangedEventArgs<ARTrackedImage> args)
     {
@@ -36,7 +36,7 @@ public class SpawnManager : MonoBehaviour
 
         if(platformDictionary.TryGetValue(imageID, out GameObject platform))
         {
-            spawnObject = Instantiate(platform, trackedImage.transform);
+            spawnObject = Instantiate(platform, trackedImage.transform.position, Quaternion.identity, trackedImage.transform);
         }
     }
 }
