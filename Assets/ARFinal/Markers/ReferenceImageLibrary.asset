@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: ReferenceImageLibrary
+  m_EditorClassIdentifier: Unity.XR.ARSubsystems::UnityEngine.XR.ARSubsystems.XRReferenceImageLibrary
+  m_GuidLow: 4710478780000920672
+  m_GuidHigh: 4034027243483755428
+  m_DataStore:
+    m_Storage: []
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 5690137859081695846
+      m_GuidHigh: 10954148726040593308
+    m_SerializedTextureGuid:
+      m_GuidLow: 13719258177131624379
+      m_GuidHigh: 12215442497737467609
+    m_Size: {x: 0.127, y: 0.127}
+    m_SpecifySize: 1
+    m_Name: Start
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5646795565654580970
+      m_GuidHigh: 8682356147598956455
+    m_SerializedTextureGuid:
+      m_GuidLow: 13723761956949445674
+      m_GuidHigh: 6612179999427895483
+    m_Size: {x: 0.127, y: 0.127}
+    m_SpecifySize: 1
+    m_Name: End
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5060951987137943477
+      m_GuidHigh: 16991079000456334231
+    m_SerializedTextureGuid:
+      m_GuidLow: 13201259104499906980
+      m_GuidHigh: 11882586873089954537
+    m_Size: {x: 0.1143, y: 0.119514525}
+    m_SpecifySize: 1
+    m_Name: End
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5719713804110479840
+      m_GuidHigh: 11272475886977107359
+    m_SerializedTextureGuid:
+      m_GuidLow: 6360238480256881723
+      m_GuidHigh: 1732661938372767737
+    m_Size: {x: 0.1143, y: 0.1143}
+    m_SpecifySize: 1
+    m_Name: Start
+    m_Texture: {fileID: 0}
