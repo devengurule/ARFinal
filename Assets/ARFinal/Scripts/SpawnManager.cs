@@ -18,7 +18,6 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-
     private void OnEnable() => arImageManager.trackablesChanged.AddListener(OnTrackedImagesChanged);
     private void OnDisable() => arImageManager.trackablesChanged.RemoveListener(OnTrackedImagesChanged);
 
@@ -32,11 +31,21 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnPlatforms(ARTrackedImage trackedImage)
     {
+        Vector3 upVector = -Physics.gravity.normalized;
+
+        Vector3 forwardVector = Vector3.ProjectOnPlane(trackedImage.transform.forward, upVector);
+
+        Quaternion platformRotation = Quaternion.LookRotation(forwardVector, upVector);
+
         string imageID = trackedImage.referenceImage.name;
 
         if(platformDictionary.TryGetValue(imageID, out GameObject platform))
         {
-            spawnObject = Instantiate(platform, trackedImage.transform.position, Quaternion.identity, trackedImage.transform);
+            spawnObject = Instantiate(platform, trackedImage.transform.position, platformRotation, trackedImage.transform);
+            if(spawnObject.TryGetComponent<RotationPersistence>(out RotationPersistence rp))
+            {
+                rp.SetForwardVector(forwardVector);
+            }
         }
     }
 }

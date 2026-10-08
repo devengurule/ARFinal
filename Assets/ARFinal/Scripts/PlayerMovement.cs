@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,11 +9,10 @@ public class PlayerMovement : MonoBehaviour
     private Camera _camera;
     private Rigidbody rb;
     private Vector2 moveVector;
-    private Vector3 startPos;
+    public static event Action RespawnPlayer;
 
     private void Start()
     {
-        startPos = transform.localPosition;
         rb = GetComponent<Rigidbody>();
         _camera = Camera.main;
 
@@ -20,13 +20,17 @@ public class PlayerMovement : MonoBehaviour
         InputHandler.jump += OnJump;
     }
 
-    private void OnBecameInvisible()
-    {
-        transform.position = startPos;
-    }
-
     private void Update()
     {
+        if (rb == null) return;
+        
+        Debug.Log(transform.position.y);
+
+        if (transform.position.y < 0)
+        {
+            RespawnPlayer?.Invoke();
+        }
+
         Vector3 forward = _camera.transform.forward.normalized;
         Vector3 right = _camera.transform.right.normalized;
 
@@ -49,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump()
     {
+        if (rb == null) return;
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 }
