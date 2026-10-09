@@ -11,20 +11,18 @@ public class RotationPersistence : MonoBehaviour
         Vector3 upVector = -Physics.gravity.normalized;
 
         Quaternion platformRotation = Quaternion.LookRotation(forwardVector, upVector);
+
+        persistentRotation = platformRotation;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         ResetRotation();
     }
 
     private void ResetRotation()
     {
-        Vector3 upVector = -Physics.gravity.normalized;
-
-        Quaternion platformRotation = Quaternion.LookRotation(forwardVector, upVector);
-
-        transform.rotation = platformRotation;
+        transform.rotation = persistentRotation;
     }
 
     public void SetForwardVector(Vector3 vector)
