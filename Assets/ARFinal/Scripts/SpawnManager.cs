@@ -42,10 +42,6 @@ public class SpawnManager : MonoBehaviour
         if(platformDictionary.TryGetValue(imageID, out GameObject platform))
         {
             spawnObject = Instantiate(platform, trackedImage.transform.position, platformRotation, trackedImage.transform);
-            if(spawnObject.TryGetComponent<RotationPersistence>(out RotationPersistence rp))
-            {
-                rp.SetForwardVector(forwardVector);
-            }
         }
     }
 }
