@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: -8588928489252244145}
   - component: {fileID: 2587985404723375883}
   m_Layer: 0
-  m_Name: HoveringPlatform
+  m_Name: Platform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
