@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float distanceTillRespawn;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float staticDamping;
     [SerializeField] private float kinematicDamping;
@@ -42,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         if (moveVector == Vector2.zero) rb.angularDamping = staticDamping;
         else rb.angularDamping = kinematicDamping;
 
-        if (Mathf.Abs(transform.position.y - _camera.transform.position.y ) > distanceTillRespawn)
+        if (Mathf.Abs(transform.position.y - _camera.transform.position.y ) > 10)
         {
             RespawnPlayer?.Invoke();
             Destroy(gameObject);
