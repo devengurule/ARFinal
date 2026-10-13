@@ -38,6 +38,6 @@ public class TouchInputHandler : MonoBehaviour
 
         if (!Physics.Raycast(ray, out RaycastHit hit)) return;
 
-        if (hit.collider.gameObject.tag == "Start") SpawnPlayer?.Invoke();
+        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Start")) SpawnPlayer?.Invoke();
     }
 }
