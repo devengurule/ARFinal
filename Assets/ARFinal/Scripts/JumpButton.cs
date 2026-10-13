@@ -13,6 +13,7 @@ public class JumpButton : MonoBehaviour
     private Canvas canvas;
     private Image buttonImage;
     private Color startColor;
+    private int buttonTouchId = -1;
 
     private void Awake()
     {
@@ -38,18 +39,29 @@ public class JumpButton : MonoBehaviour
 
         foreach (var touch in Touch.activeTouches)
         {
-            if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) if (buttonImage != null) buttonImage.color = startColor;
-            if (touch.phase != TouchPhase.Began) continue;
+            if (touch.touchId == buttonTouchId)
+            {
+                if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) buttonImage.color = startColor;
+                else continue;
+                buttonTouchId = -1;
+            }
+            else
+            {
+                if (touch.phase != TouchPhase.Began) continue;
 
-            Camera uiCamera = canvas.rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.rootCanvas.worldCamera;
+                Camera uiCamera = canvas.rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.rootCanvas.worldCamera;
 
-            bool insideButton = RectTransformUtility.RectangleContainsScreenPoint(buttonRect, touch.screenPosition, uiCamera);
+                bool insideButton = RectTransformUtility.RectangleContainsScreenPoint(buttonRect, touch.screenPosition, uiCamera);
 
-            if (!insideButton) continue;
+                if (!insideButton) continue;
 
-            if (buttonImage != null) buttonImage.color = Color.red;
+                if (buttonTouchId == -1) buttonTouchId = touch.touchId;
+                
+                buttonImage.color = Color.red;
 
-            OnJump?.Invoke();
+                OnJump?.Invoke();
+            }
         }
+
     }
 }
