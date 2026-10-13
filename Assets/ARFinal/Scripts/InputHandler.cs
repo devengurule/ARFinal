@@ -6,7 +6,6 @@ public class InputHandler : MonoBehaviour
 {
     private Controls input;
     public static event Action<Vector2> moveChange;
-    public static event Action jump;
 
     private void Awake()
     {
@@ -19,8 +18,6 @@ public class InputHandler : MonoBehaviour
 
         input.Player.Move.performed += OnMovePerformed;
         input.Player.Move.canceled += OnMoveCancelled;
-
-        input.Player.Jump.performed += OnJumpPerformed;
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -31,10 +28,5 @@ public class InputHandler : MonoBehaviour
     private void OnMoveCancelled(InputAction.CallbackContext context)
     {
         moveChange?.Invoke(Vector2.zero);
-    }
-
-    private void OnJumpPerformed(InputAction.CallbackContext context)
-    {
-        jump?.Invoke();
     }
 }

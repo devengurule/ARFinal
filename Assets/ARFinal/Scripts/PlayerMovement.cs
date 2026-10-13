@@ -15,19 +15,18 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         _camera = Camera.main;
-
-        InputHandler.moveChange += OnMoveChange;
-        InputHandler.jump += OnJump;
     }
+
+    private void OnEnable() => InputHandler.moveChange += OnMoveChange;
+    private void OnDisable() => InputHandler.moveChange -= OnMoveChange;
 
     private void Update()
     {
         if (rb == null) return;
-        
-        Debug.Log(transform.position.y);
 
-        if (transform.position.y < 0)
+        if (Mathf.Abs(transform.position.y - _camera.transform.position.y ) > 10)
         {
+            Debug.Log("Respawning");
             RespawnPlayer?.Invoke();
         }
 
@@ -51,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         this.moveVector = moveVector;
     }
 
-    private void OnJump()
+    public void Jump()
     {
         if (rb == null) return;
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
