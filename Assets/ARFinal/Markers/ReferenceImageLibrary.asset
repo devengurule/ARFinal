@@ -37,3 +37,23 @@ MonoBehaviour:
     m_SpecifySize: 1
     m_Name: Start
     m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4966040392561370696
+      m_GuidHigh: 900084070730089636
+    m_SerializedTextureGuid:
+      m_GuidLow: 9958694536046668535
+      m_GuidHigh: 8422720387022800347
+    m_Size: {x: 0.127, y: 0.12827943}
+    m_SpecifySize: 1
+    m_Name: HollowRect
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4900309028792704806
+      m_GuidHigh: 18416772695032859576
+    m_SerializedTextureGuid:
+      m_GuidLow: 17857924396658544319
+      m_GuidHigh: 18111712602246900217
+    m_Size: {x: 0.127, y: 0.124204606}
+    m_SpecifySize: 1
+    m_Name: Triangles
+    m_Texture: {fileID: 0}
