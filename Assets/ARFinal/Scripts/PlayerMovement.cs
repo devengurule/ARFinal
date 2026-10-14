@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera _camera;
     private Rigidbody rb;
     private Vector2 moveVector;
-    private bool canJump;
+    public bool canJump { get; set; }
     public static event Action RespawnPlayer;
 
     private void Start()
@@ -27,26 +27,72 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         InputHandler.moveChange += OnMoveChange;
-        JumpButton.OnJump += Jump;
+        JumpButton.OnJump += OnJump;
+        CollisionManager.CollidingWithGround += CheckForJump;
+        CollisionManager.StoppedCollidingWithGround += ResetJump;
     }
     private void OnDisable()
     {
         InputHandler.moveChange -= OnMoveChange;
-        JumpButton.OnJump -= Jump;
+        JumpButton.OnJump -= OnJump;
+        CollisionManager.CollidingWithGround -= CheckForJump;
+        CollisionManager.StoppedCollidingWithGround -= ResetJump;
     }
 
     private void Update()
+    {
+        CheckForRespawn();
+
+        Movement();
+    }
+
+    private void OnMoveChange(Vector2 moveVector)
+    {
+        this.moveVector = moveVector;
+    }
+
+    private void OnJump()
+    {
+        if (rb == null || !canJump) return;
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
+
+    private void ResetJump()
+    {
+        canJump = false;
+    }
+
+    private void CheckForJump(Collision collision)
+    {
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Vector3 surfaceNormal = collision.contacts[0].normal;
+
+            float finalAngle = FindAngleBetweenVectors(surfaceNormal, Vector3.up);
+
+            if (finalAngle >= jumpAngleRange.x && finalAngle <= jumpAngleRange.y)
+            {
+                canJump = true;
+                return;
+            }
+        }
+    }
+
+    private void CheckForRespawn()
+    {
+        if (Mathf.Abs(transform.position.y - _camera.transform.position.y) > distanceTillRespawn)
+        {
+            RespawnPlayer?.Invoke();
+            Destroy(gameObject);
+        }
+    }
+
+    private void Movement()
     {
         if (rb == null) return;
 
         if (moveVector == Vector2.zero) rb.angularDamping = staticDamping;
         else rb.angularDamping = kinematicDamping;
-
-        if (Mathf.Abs(transform.position.y - _camera.transform.position.y ) > distanceTillRespawn)
-        {
-            RespawnPlayer?.Invoke();
-            Destroy(gameObject);
-        }
 
         Vector3 forward = _camera.transform.forward.normalized;
         Vector3 right = _camera.transform.right.normalized;
@@ -63,47 +109,14 @@ public class PlayerMovement : MonoBehaviour
         rb.AddTorque(torqueDirection * Mathf.Min(moveSpeed, maxTorque) * Time.deltaTime, ForceMode.Force);
     }
 
-    private void OnMoveChange(Vector2 moveVector)
+    private float FindAngleBetweenVectors(Vector3 a, Vector3 b)
     {
-        this.moveVector = moveVector;
-    }
+        float dotProduct = Vector3.Dot(a, b);
+        float magnitude = a.magnitude * b.magnitude;
+        float x = Mathf.Clamp(dotProduct / magnitude, 0f, 1f);
 
-    public void Jump()
-    {
-        if (rb == null || !canJump) return;
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    }
+        float finalAngle = Mathf.Abs(Mathf.Acos(x) * Mathf.Rad2Deg);
 
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.tag != "Ground") return;
-
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            Vector3 surfaceNormal = collision.contacts[0].normal;
-
-            float dotProduct = Vector3.Dot(surfaceNormal, Vector3.up);
-            float magnitude = surfaceNormal.magnitude;
-
-            float x = Mathf.Clamp(dotProduct / magnitude, 0f, 1f);
-
-            float finalAngle = Mathf.Abs(Mathf.Acos(x) * Mathf.Rad2Deg);
-
-            if (finalAngle >= jumpAngleRange.x && finalAngle <= jumpAngleRange.y)
-            {
-                canJump = true;
-                return;
-            }
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground") canJump = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("YOU WON");
+        return finalAngle;
     }
 }
