@@ -941,6 +941,7 @@ GameObject:
   - component: {fileID: 1755927188}
   - component: {fileID: 1755927189}
   - component: {fileID: 1755927190}
+  - component: {fileID: 1755927191}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1008,8 +1009,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   jumpButton: {fileID: 1275445758}
   restartButton: {fileID: 5710325}
-  arSession: {fileID: 1167446572}
-  imageManager: {fileID: 0}
+--- !u!114 &1755927191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755927186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7cfa9a12c4bafd449f41750c11d3e9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SFXManager
 --- !u!4 &1765540924 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6605111590819766859, guid: 3a8eba26f72c69c42b571be30b6436dc, type: 3}

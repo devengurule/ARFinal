@@ -7,8 +7,6 @@ public class GameHandler : MonoBehaviour
 {
     [SerializeField] private GameObject jumpButton;
     [SerializeField] private GameObject restartButton;
-    [SerializeField] private ARSession arSession;
-    [SerializeField] private ARTrackedImageManager imageManager;
 
     private void OnEnable()
     {

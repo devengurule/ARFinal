@@ -1,0 +1,32 @@
+{
+  "name": "com.unity.project-auditor",
+  "version": "3.1.1",
+  "displayName": "Project Auditor",
+  "unity": "6000.0",
+  "description": "Project Auditor is a static analysis tool that analyzes assets, settings, and scripts of the Unity project and produces a report containing: Code and Settings Diagnostics, the last BuildReport, and assets information.",
+  "keywords": [
+    "performance",
+    "analysis"
+  ],
+  "dependencies": {
+    "com.unity.nuget.mono-cecil": "1.10.1",
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
+    "com.unity.project-auditor-rules": "2.0.0"
+  },
+  "relatedPackages": {
+    "com.unity.project-auditor.tests": "3.1.1"
+  },
+  "_upm": {
+    "changelog": "### Added\n* Ability to query the package version update database\n\n### Improved\n* Prompt to update out-of-date Project Auditor package, combined with button to update the Rules package"
+  },
+  "upmCi": {
+    "footprint": "1b2176a8a4e82adcd6b54a85a57c89063b0f6f27"
+  },
+  "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.project-auditor@3.1/manual/index.html",
+  "repository": {
+    "url": "https://github.cds.internal.unity3d.com/unity/ProjectAuditor.git",
+    "type": "git",
+    "revision": "959c7b4cf1ed25955407c1287c9be4173a13955f"
+  },
+  "_fingerprint": "84ae2ab1a602e715cbff7721a9382f5e676929c2"
+}
