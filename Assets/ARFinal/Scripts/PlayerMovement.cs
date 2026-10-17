@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canJump { get; set; }
     private bool canMove = true;
     public static event Action RespawnPlayer;
+    public static event Action PlayerJumped;
 
     private void Start()
     {
@@ -59,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnJump()
     {
         if (rb == null || !canJump || !canMove) return;
+        PlayerJumped?.Invoke();
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 

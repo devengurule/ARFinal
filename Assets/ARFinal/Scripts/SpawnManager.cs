@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -9,6 +10,7 @@ public class SpawnManager : MonoBehaviour
 
     private Dictionary<string, GameObject> platformDictionary = new();
     private GameObject spawnObject;
+    public static event Action PlatformSpawned;
 
     private void Start()
     {
@@ -41,6 +43,7 @@ public class SpawnManager : MonoBehaviour
 
         if(platformDictionary.TryGetValue(imageID, out GameObject platform))
         {
+            PlatformSpawned?.Invoke();
             spawnObject = Instantiate(platform, trackedImage.transform.position, platformRotation, trackedImage.transform);
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class CollisionManager : MonoBehaviour
 {
     public static event Action<Collision> CollidingWithGround;
+    public static event Action HitGround;
     public static event Action StoppedCollidingWithGround;
     public static event Action CollidedWIthEnd;
 
@@ -13,6 +14,13 @@ public class CollisionManager : MonoBehaviour
         {
             CollidingWithGround?.Invoke(collision);
             UpdateParent(collision);
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            HitGround?.Invoke();
         }
     }
 
