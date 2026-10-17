@@ -10,7 +10,6 @@ public class HoveringPlatform : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(0);
         StartCoroutine(CycleTransformPositions());
     }
 
