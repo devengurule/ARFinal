@@ -1,17 +1,19 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class SpawnPlayer : MonoBehaviour
 {
-    [SerializeField] private GameObject playerUI;
+    [SerializeField] private GameObject startUi;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform playerSpawnPos;
+
+    public static event Action PlayerSpawned;
 
     private GameObject playerObject;
 
     private void OnEnable()
     {
-        playerUI.SetActive(false);
         TouchInputHandler.SpawnPlayer += OnSpawnPlayer;
         PlayerMovement.RespawnPlayer += OnSpawnPlayer;
     }
@@ -32,7 +34,8 @@ public class SpawnPlayer : MonoBehaviour
 
         if (playerObject == null)
         {
-            if(!playerUI.activeSelf) playerUI.SetActive(true);
+            if(startUi.activeSelf) startUi.SetActive(false);
+            PlayerSpawned?.Invoke();
             playerObject = Instantiate(playerPrefab, playerSpawnPos.position, Quaternion.identity, transform);
         }
 

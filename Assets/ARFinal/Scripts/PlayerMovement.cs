@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector2 moveVector;
     public bool canJump { get; set; }
+    private bool canMove = true;
     public static event Action RespawnPlayer;
 
     private void Start()
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         JumpButton.OnJump += OnJump;
         CollisionManager.CollidingWithGround += CheckForJump;
         CollisionManager.StoppedCollidingWithGround += ResetJump;
+        CollisionManager.CollidedWIthEnd += TurnOffMovment;
     }
     private void OnDisable()
     {
@@ -37,10 +39,13 @@ public class PlayerMovement : MonoBehaviour
         JumpButton.OnJump -= OnJump;
         CollisionManager.CollidingWithGround -= CheckForJump;
         CollisionManager.StoppedCollidingWithGround -= ResetJump;
+        CollisionManager.CollidedWIthEnd -= TurnOffMovment;
     }
 
     private void Update()
     {
+        if (!canMove) return;
+
         CheckForRespawn();
 
         Movement();
@@ -53,13 +58,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump()
     {
-        if (rb == null || !canJump) return;
+        if (rb == null || !canJump || !canMove) return;
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     private void ResetJump()
     {
         canJump = false;
+    }
+
+    private void TurnOffMovment()
+    {
+        canMove = false;
     }
 
     private void CheckForJump(Collision collision)

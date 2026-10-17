@@ -5,6 +5,7 @@ public class CollisionManager : MonoBehaviour
 {
     public static event Action<Collision> CollidingWithGround;
     public static event Action StoppedCollidingWithGround;
+    public static event Action CollidedWIthEnd;
 
     private void OnCollisionStay(Collision collision)
     {
@@ -22,7 +23,7 @@ public class CollisionManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        CollidedWIthEnd?.Invoke();
     }
 
     private void UpdateParent(Collision collision)
