@@ -169,8 +169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   distanceTillRespawn: 5
-  moveSpeed: 0.5
-  staticDamping: 2
+  moveSpeed: 0.6
+  staticDamping: 7
   kinematicDamping: 1
   jumpForce: 1
   maxTorque: 1
